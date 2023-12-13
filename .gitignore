@@ -1,0 +1,4 @@
+.venv
+.vscode
+server/core/__pycache__
+server/core/migrations/__pycache__
