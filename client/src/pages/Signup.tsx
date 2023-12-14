@@ -41,11 +41,10 @@ function Signup() {
     },
     validationSchema: Yup.object({
       email: Yup.string().trim().required("Please, enter your email"),
-      password: Yup.string().trim().required("Please, enter your password"),
+      password: Yup.string().trim().required("Please, enter your password").min(8, 'Must be at least 8 digits'),
       username: Yup.string().trim().required("Please, enter your username"),
     }),
   });
-
   return (
     <div className="h-screen flex bg-gray-bg1">
       <div className="w-full max-w-md m-auto bg-white rounded-lg border border-primaryBorder shadow-default py-10 px-16">
@@ -99,6 +98,7 @@ function Signup() {
               Sign up
             </button>
           </div>
+          <a href="/login" className="text-blue-400">I'm have an account</a>
         </form>
       </div>
     </div>

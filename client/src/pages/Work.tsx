@@ -1,10 +1,12 @@
-import {useDispatch, useSelector} from "react-redux";
-import {useHistory} from "react-router";
+import { useDispatch, useSelector } from "react-redux";
+import { useHistory } from "react-router";
 import authSlice from "../store/slices/auth";
-import useSWR from 'swr';
-import {fetcher} from "../utils/axios";
-import {UserResponse} from "../utils/types";
-import {RootState} from "../store";
+// import useSWR from 'swr';
+// import { fetcher } from "../utils/axios";
+// import { UserResponse } from "../utils/types";
+import { RootState } from "../store";
+import {Container, Box, CssBaseline, Button} from '@mui/material';
+import GenerateForm from './GenerateForm'
 
 const Work = () => {
   const account = useSelector((state: RootState) => state.auth.account);
@@ -12,33 +14,35 @@ const Work = () => {
   const history = useHistory();
   // @ts-ignore
   const userId = account?.id;
-
-  const user = useSWR<UserResponse>(`/user/${userId}/`, fetcher)
+  // const user = useSWR<UserResponse>(`/user/${userId}/`, fetcher)
 
   const handleLogout = () => {
     dispatch(authSlice.actions.setLogout());
     history.push("/login");
   };
+
   return (
-    <div className="w-full h-screen">
-      <div className="w-full p-6">
-        <button
+    <Container component="main" maxWidth="xs">
+      <CssBaseline />
+      <Box
+        sx={{
+          marginTop: 8,
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+        }}
+      >
+        <Button
           onClick={handleLogout}
-          className="rounded p-2 w-32 bg-red-700 text-white"
+          variant="contained"
+          sx={{ mt: 3, mb: 2 }}
         >
           Log out
-        </button>
-      </div>
-        {
-            user.data ?
-                <div className="w-full h-full text-center items-center">
-                    <p className="self-center my-auto">Welcome, {user.data?.username}</p>
-                </div>
-                :
-                <p className="text-center items-center">Loading ...</p>
-        }
-    </div>
-  );
+        </Button>
+        <GenerateForm userId={userId}/>
+      </Box>
+    </Container>
+  )
 };
 
 export default Work;

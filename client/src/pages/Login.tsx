@@ -23,9 +23,7 @@ function Login() {
         );
         dispatch(authSlice.actions.setAccount(res.data.user));
         setLoading(false);
-        history.push("/", {
-          userId: res.data.id
-        });
+        history.push("/")
       })
   };
 
@@ -40,7 +38,7 @@ function Login() {
     },
     validationSchema: Yup.object({
       email: Yup.string().trim().required("Please, enter your email"),
-      password: Yup.string().trim().required("Please, enter your password"),
+      password: Yup.string().trim().required("Please, enter your password").min(8, 'Must be at least 8 digits'),
     }),
   });
 
