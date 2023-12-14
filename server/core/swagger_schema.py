@@ -56,7 +56,7 @@ LOG_IN_SCHEME = {
 
 
 GET_ANSWER_SHEME = {
-    'method': 'GET',
+    'method': 'POST',
     'query_serializer': GetAnswerSerializer,
     'responses': {
         status.HTTP_200_OK: openapi.Schema(

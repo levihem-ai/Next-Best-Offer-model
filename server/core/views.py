@@ -46,36 +46,38 @@ def log_in(request: Request) -> Response:
 
 
 @swagger_auto_schema(**GET_ANSWER_SHEME)
-@api_view(['GET'])
+@api_view(['POST'])
 @permission_classes([IsAuthenticated])
-@require_http_methods(["GET"])
+@require_http_methods(["POST"])
 def get_answer(request: Request) -> Response:
     """
     Get answer from model
     """
+    user_id = None
 
-    if request.method != 'GET':
+    if request.method != 'POST':
         raise NotFound('Endpoint does not exists')
 
-    serializer = GetAnswerSerializer(data=request.query_params)
+    try:
+        user_id = request.user.id
+    except Exception as e:
+        raise Exception('User does not exists!')
+
+    serializer = GetAnswerSerializer(data=request.data)
     if serializer.is_valid():
-        pass
         val_data = serializer.validated_data
 
-        # line = val_data.get('line')
-        # userId = val_data.get('userId')
         # -------------псевдо код-----------
-        # new_answer = model.get_answer(**val_data)
+        # new_answer = model.get_answer(**val_data) #{'answer': 'new_answer.answer', 'accuracy': 'new_answer.accuracy'}
         # ----------------------------------
 
         # записываем в историю
-        add_dialogs = Dialogs(answer='new_answer', **val_data)
+        add_dialogs = Dialogs(answer='new_answer', user_id=user_id, **val_data)
         add_dialogs.save()
-        # return Response({'answer': 'new_answer'})
+
+        return Response({'user_id': user_id, 'answer': 'new_answer.answer', 'accuracy': 'new_answer.accuracy', **val_data})
     else:
         return Response(serializer.errors, status=400)
-
-    return Response({'answer': 'new_answer'})
 
 
 @swagger_auto_schema(**REGISTRATION_SCHEME)
@@ -124,4 +126,4 @@ def registration(request: Request) -> Response:
         return Response(serializer.errors, status=400)
 
 
-# сделать эндпоинт для получения истории в json или сsv
+# # сделать эндпоинт для получения истории в json или сsv

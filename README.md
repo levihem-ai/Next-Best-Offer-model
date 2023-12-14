@@ -59,5 +59,13 @@ Look up API parametrs see:
 - swagger/ - interactive API docs with Swagger-UI
 - redoc/ - interactive API docs with ReDoc
 
+### For testing
+```sh
+curl -u 'admin:admin' \
+    -H "Content-Type: application/json" \
+    -X POST \
+    -d '{"gender":"xyz","age":54}' \
+    http://localhost:8000/api/answer/
+```
 ## model - PyTorch Model
 The NBO LLM (Russian lang)
