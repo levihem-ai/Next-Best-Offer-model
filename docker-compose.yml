@@ -1,0 +1,28 @@
+version: '3'
+
+services:
+  postgres:
+    image: postgres
+    restart: always
+    ports:
+      - "5433:5432"
+    environment:
+      POSTGRES_USER: demo
+      POSTGRES_PASSWORD: demo
+      POSTGRES_DB: core
+
+  rabbitmq:
+    image: rabbitmq
+    restart: always
+    hostname: rabbitmq
+    volumes:
+      - ./rabbitmq:/var/lib/rabbitmq
+    ports:
+      # AMQP protocol port
+      - "5672:5672"
+      # HTTP management UI
+      - "15672:15672"
+    environment:
+      RABBITMQ_DEFAULT_USER: demo
+      RABBITMQ_DEFAULT_PASS: demo
+      # RABBITMQ_SERVER_ADDITIONAL_ERL_ARGS: -rabbit disk_free_limit 2147483648
