@@ -15,9 +15,8 @@ The dev-server starts on [http://localhost:3000](http://localhost:3000)
 ### Run dev-server for the first time: 
 
 1. Run docker container with postgres-database
->NOTE: Execute this line every time you need run dev-server
 ```
-docker run --name server -e POSTGRES_PASSWORD=demo -e POSTGRES_USER=demo -e POSTGRES_DB=core -d -p 5433:5432 postgres
+docker-compose up -d
 ```
 
 2. Install dependencies
