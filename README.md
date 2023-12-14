@@ -3,9 +3,10 @@
 
 ## client - ReactApp
 
-To run dev-server execute the folowing commands:
+To run dev-server execute the folowing commands into __client__ dir:
 ```sh
 npm i
+cp .env.example .env
 npm start
 ```
 The dev-server starts on [http://localhost:3000](http://localhost:3000)
@@ -27,12 +28,18 @@ python3 -m venv .venv
 source .venv/bin/activate
 .venv/bin/pip install -r r.txt
 
+python manage.py makemigrations
 python manage.py migrate
 ```
 
 3. Create super user
 ```sh
 python manage.py createsuperuser
+```
+
+4. Create test user 
+```sh
+curl -X POST -H "Content-Type: application/json" -d '{"email": "testuser@yopmail.com", "password": "12345678", "username": "testuser"}' http://localhost:8000/api/auth/register/
 ```
 
 4. Run dev-server
