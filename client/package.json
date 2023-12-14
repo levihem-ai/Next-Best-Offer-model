@@ -1,5 +1,5 @@
 {
-  "name": "django-react-auth-app",
+  "name": "client",
   "version": "0.1.0",
   "private": true,
   "dependencies": {

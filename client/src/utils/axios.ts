@@ -4,7 +4,7 @@ import store from '../store';
 import authSlice from '../store/slices/auth';
 
 const axiosService = axios.create({
-    baseURL: process.env.BACKEND_URL,
+    baseURL: process.env.REACT_APP_API_URL,
     headers: {
         'Content-Type': 'application/json',
     },
@@ -49,7 +49,7 @@ const refreshAuthLogic = async (failedRequest) => {
                     refresh: refreshToken,
                 },
                 {
-                    baseURL: process.env.BACKEND_URL
+                    baseURL: process.env.REACT_APP_API_URL
                 }
             )
             .then((resp) => {
