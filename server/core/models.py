@@ -9,6 +9,7 @@ class Dialogs(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     deleted_at = models.DateTimeField(null=True)
+    answer = models.CharField(max_length=4000)
 
     gender = models.CharField(max_length=4000)
     """Пол клиента (0 муж, 1 жен)"""
