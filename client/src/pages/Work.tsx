@@ -6,7 +6,7 @@ import {fetcher} from "../utils/axios";
 import {UserResponse} from "../utils/types";
 import {RootState} from "../store";
 
-const Profile = () => {
+const Work = () => {
   const account = useSelector((state: RootState) => state.auth.account);
   const dispatch = useDispatch();
   const history = useHistory();
@@ -26,7 +26,7 @@ const Profile = () => {
           onClick={handleLogout}
           className="rounded p-2 w-32 bg-red-700 text-white"
         >
-          Deconnexion
+          Log out
         </button>
       </div>
         {
@@ -41,4 +41,4 @@ const Profile = () => {
   );
 };
 
-export default Profile;
+export default Work;

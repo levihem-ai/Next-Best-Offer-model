@@ -6,14 +6,14 @@ import authSlice from "../store/slices/auth";
 import axios from "axios";
 import { useHistory } from "react-router";
 
-function Login() {
+function Signup() {
   const [loading, setLoading] = useState(false);
   const dispatch = useDispatch();
   const history = useHistory();
 
-  const handleLogin = (email: string, password: string) => {
+  const handleLogin = (email: string, password: string, username: string) => {
     axios
-      .post(`${process.env.REACT_APP_API_URL}auth/login/`, { email, password })
+      .post(`${process.env.REACT_APP_API_URL}auth/register/`, { email, password, username })
       .then((res) => {
         dispatch(
           authSlice.actions.setAuthTokens({
@@ -33,14 +33,16 @@ function Login() {
     initialValues: {
       email: "",
       password: "",
+      username: "",
     },
     onSubmit: (values) => {
       setLoading(true);
-      handleLogin(values.email, values.password);
+      handleLogin(values.email, values.password, values.username);
     },
     validationSchema: Yup.object({
       email: Yup.string().trim().required("Please, enter your email"),
       password: Yup.string().trim().required("Please, enter your password"),
+      username: Yup.string().trim().required("Please, enter your username"),
     }),
   });
 
@@ -48,7 +50,7 @@ function Login() {
     <div className="h-screen flex bg-gray-bg1">
       <div className="w-full max-w-md m-auto bg-white rounded-lg border border-primaryBorder shadow-default py-10 px-16">
         <h1 className="text-2xl font-medium text-primary mt-4 mb-12 text-center">
-          Log in to your account 🔐
+          Sign up to your account 🆕
         </h1>
         <form onSubmit={formik.handleSubmit}>
           <div className="space-y-4">
@@ -63,6 +65,17 @@ function Login() {
               onBlur={formik.handleBlur}
             />
             {formik.errors.email ? <div>{formik.errors.email} </div> : null}
+            <input
+              className="border-b border-gray-300 w-full px-2 h-8 rounded focus:border-blue-500"
+              id="username"
+              type="text"
+              placeholder="Username"
+              name="username"
+              value={formik.values.username}
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
+            />
+            {formik.errors.username ? <div>{formik.errors.username} </div> : null}
             <input
               className="border-b border-gray-300 w-full px-2 h-8 rounded focus:border-blue-500"
               id="password"
@@ -83,14 +96,13 @@ function Login() {
               disabled={loading}
               className="rounded border-gray-300 p-2 w-32 bg-blue-700 text-white"
             >
-              Login
+              Sign up
             </button>
           </div>
-          <a href="/signup" className="text-blue-400">I'm new here</a>
         </form>
       </div>
     </div>
   );
 }
 
-export default Login;
+export default Signup;
