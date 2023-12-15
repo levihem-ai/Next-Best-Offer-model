@@ -4,6 +4,7 @@ __pycache__
 .DS_store
 client/node_modules/*
 node_modules
+env/
 .env
 migrations
 rabbitmq

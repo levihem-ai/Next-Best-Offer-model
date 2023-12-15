@@ -1,0 +1,2 @@
+__target__:
+model_weihts: data/models/7B/saiga_mistral/model-q4_K.gguf
